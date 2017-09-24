@@ -1,0 +1,65 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>ode_num_int code samples</title><meta name="generator" content="Hovercraft! 1.0 http://regebro.github.com/hovercraft"></meta><link rel="stylesheet" href="css/hovercraft.css" media="all"></link><link rel="stylesheet" href="css/impressConsole.css" media="all"></link><link rel="stylesheet" href="css/highlight.css" media="all"></link><link rel="stylesheet" href="css/my.css" media="all"></link><link rel="stylesheet" href="js/katex/katex.min.css" media="all"></link><link rel="stylesheet" href="css/jquery.fancybox.min.css" media="all"></link><link rel="stylesheet" href="css/clock.css" media="all"></link></head><body class="impress-not-supported"><div id="impress" data-transition-duration="500"><div class="step step-level-1" step="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="0" data-y="0" data-z="0"><h1 id="ode-num-int-code-samples"><span class="tt">ode_num_int</span> code samples</h1></div><div class="step step-level-1" step="1" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="1600" data-y="0" data-z="0"><h1 id="new-framework-ode-num-int">New framework: <span class="tt">ode_num_int</span></h1><h2 id="common-infrastructure-observers">Common infrastructure: observers</h2><ul><li>similar to <a href="http://www.boost.org/doc/libs/1_65_1/doc/html/signals2.html">Boost.Signals2</a> but simpler &amp; faster</li><li>provide basic means for monitoring everything<div class="smaller-80"><pre class="highlight code C++"><span class="k">struct</span> <span class="n">Foo</span> <span class="p">{</span>
+    <span class="n">Observers</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="n">barObservers</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="n">barObservers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">baz</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Foo</span> <span class="n">foo</span><span class="p">;</span>
+    <span class="n">foo</span><span class="p">.</span><span class="n">barObservers</span><span class="p">.</span><span class="n">add</span><span class="p">([](</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"("</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">")</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">});</span>
+    <span class="n">foo</span><span class="p">.</span><span class="n">bar</span><span class="p">();</span> <span class="c1">// prints (1, 2.3)
+</span><span class="p">}</span></pre></div></li></ul></div><div class="step step-level-1" step="2" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="3200" data-y="0" data-z="0"><h1 id="common-property-holders">common: property holders</h1><div class="smaller-80"><ul><li>The <span class="tt">CTM_DEF_NOTIFIED_PROP_CLASS</span> macro declares a class that<ul><li>stores a single private field of specified type</li><li>has public getter &amp; setter for that field</li><li>has methods to add &amp; remove observers of value modification</li></ul></li></ul><pre class="highlight code C++"><span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+<span class="n">CTM_DEF_NOTIFIED_PROP_CLASS</span><span class="p">(</span>
+    <span class="n">WithFoo</span><span class="p">,</span> <span class="n">Foo</span><span class="p">,</span> <span class="k">const</span> <span class="n">Foo</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">foo</span><span class="p">,</span> <span class="n">setFoo</span><span class="p">,</span> <span class="n">onChangeFoo</span><span class="p">,</span> <span class="n">offChangeFoo</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Bar</span> <span class="o">:</span> <span class="k">public</span> <span class="n">WithFoo</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">onChangeFoo</span><span class="p">([](){</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"foo has changed</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span> <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">baz</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Bar</span> <span class="n">bar</span><span class="p">;</span>
+    <span class="n">bar</span><span class="p">.</span><span class="n">setFoo</span><span class="p">(</span><span class="n">Foo</span><span class="p">());</span>    <span class="c1">// Prints "foo has changed"
+</span><span class="p">}</span></pre></div></div><div class="step step-level-1" step="3" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="4800" data-y="0" data-z="0"><h1 id="common-factories">common: factories</h1><ul><li>Provide basic means for dynamic instance creation</li><li>Two template classes, <span class="tt">Factory</span> and <span class="tt">FactoryMixin</span></li></ul><div class="smaller-80"><pre class="highlight code C++"><span class="k">struct</span> <span class="nl">Interface</span> <span class="p">:</span> <span class="n">Factory</span><span class="o">&lt;</span><span class="n">Interface</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// Some pure virtual methods
+</span><span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Implementation</span> <span class="o">:</span>
+    <span class="k">public</span> <span class="n">Interface</span><span class="p">,</span>
+    <span class="k">public</span> <span class="n">FactoryMixin</span><span class="o">&lt;</span><span class="n">Implementation</span><span class="p">,</span> <span class="n">Interface</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="p">...</span>
+<span class="p">};</span>
+<span class="n">Implementation</span><span class="o">::</span><span class="n">Registrator</span> <span class="n">ImplementationRegistrator</span><span class="p">(</span><span class="s">"name"</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">auto</span> <span class="n">bar</span> <span class="o">=</span> <span class="n">Factory</span><span class="o">&lt;</span><span class="n">Interface</span><span class="o">&gt;::</span><span class="n">newInstance</span><span class="p">(</span><span class="s">"name"</span><span class="p">);</span>
+<span class="p">}</span></pre></div></div><div class="step step-level-1" step="4" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="6400" data-y="0" data-z="0"><h1 id="common-optional-parameters">common: optional parameters</h1><div class="smaller-80"><ul><li>class <span class="tt">Value</span> holds single value of any type<ul><li>like <a href="http://doc.qt.io/qt-5/qvariant.html">QVariant</a>; interop. with factories</li></ul></li><li>class <span class="tt">Parameters</span> holds list of named values</li><li>class <span class="tt">OptionalParameters</span> is an interface for parameter set</li><li>Trees of values are easily organized &amp; made ready for I/O</li></ul><pre class="highlight code C++"><span class="k">class</span> <span class="nc">Foo</span> <span class="o">:</span> <span class="k">public</span> <span class="n">OptionalParameters</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Parameters</span> <span class="n">parameters</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="n">Parameters</span> <span class="n">result</span><span class="p">;</span>
+        <span class="n">result</span><span class="p">[</span><span class="s">"tol"</span><span class="p">]</span> <span class="o">=</span> <span class="n">m_tol</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">setParameters</span><span class="p">(</span> <span class="k">const</span> <span class="n">Parameters</span><span class="o">&amp;</span> <span class="n">parameters</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">maybeLoadParameter</span><span class="p">(</span> <span class="n">parameters</span><span class="p">,</span> <span class="s">"tol"</span><span class="p">,</span> <span class="n">m_tol</span> <span class="p">);</span>
+    <span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">double</span> <span class="n">m_tol</span><span class="p">;</span>
+<span class="p">};</span></pre></div></div><div class="step step-level-1" step="5" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="8000" data-y="0" data-z="0"><h1 id="common-timing-utilities">common: timing utilities</h1><ul><li>class <span class="tt">TickCounter</span> measures CPU cycles using <a href="https://en.wikipedia.org/wiki/Time_Stamp_Counter">rdtsc</a></li><li>class <span class="tt">TimingStats</span> accumulates statistics</li><li>class <span class="tt">TimerCalibrator</span> transforms CPU cycles to seconds</li></ul><div class="smaller-80"><pre class="highlight code C++"><span class="n">TimingStats</span> <span class="n">ts1</span><span class="p">,</span> <span class="n">ts2</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(...)</span> <span class="p">{</span>
+    <span class="n">TickCounter</span> <span class="n">tc</span><span class="p">;</span>
+    <span class="n">tc</span><span class="p">.</span><span class="n">start</span><span class="p">();</span>
+    <span class="p">...</span>
+    <span class="n">ts1</span> <span class="o">&lt;&lt;</span> <span class="n">tc</span><span class="p">.</span><span class="n">lap</span><span class="p">();</span>
+    <span class="p">...</span>
+    <span class="n">ts2</span> <span class="o">&lt;&lt;</span> <span class="n">tc</span><span class="p">.</span><span class="n">lap</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"ts1: "</span> <span class="o">&lt;&lt;</span> <span class="n">ts1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">"ts2: "</span> <span class="o">&lt;&lt;</span> <span class="n">ts2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></pre></div></div></div><div id="hovercraft-help" class="hide"><table><tr><th>Space</th><td>Forward</td></tr><tr><th>Right, Down, Page Down</th><td>Next slide</td></tr><tr><th>Left, Up, Page Up</th><td>Previous slide</td></tr><tr><th>P</th><td>Open presenter console</td></tr><tr><th>H</th><td>Toggle this help</td></tr></table></div><script type="text/javascript" src="js/impress.js"></script><script type="text/javascript" src="js/impressConsole.js"></script><script type="text/javascript" src="js/hovercraft.js"></script><script type="text/javascript" src="js/jquery-3.2.0.min.js"></script><script type="text/javascript" src="js/jquery.fancybox-mod.js"></script><script type="text/javascript" src="js/slide-transitions.js"></script><script type="text/javascript" src="js/katex/katex.min.js"></script><script type="text/javascript" src="js/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="js/rendermath.js"></script><script type="text/javascript" src="js/clock.js"></script></body></html>
