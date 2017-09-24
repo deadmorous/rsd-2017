@@ -88,8 +88,8 @@ div#step-1 h3 {
 
 .qr-code-in-title {
     position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 196px;
+    height: 196px;
     right: 0px;
     bottom: 0px;
     z-index: 100;
@@ -267,6 +267,14 @@ h3 {
 
 .smaller-95 {
    font-size: 95%;
+}
+
+.larger-120 {
+    font-size: 120%;
+}
+
+.larger-140 {
+    font-size: 140%;
 }
 
 h1#thank-you {
