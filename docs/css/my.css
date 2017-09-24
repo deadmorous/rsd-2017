@@ -1,0 +1,303 @@
+@import url(http://fonts.googleapis.com/css?family=Libre+Baskerville);
+
+body {
+    font-size: 200%;
+    text-align: center;
+    font-family: Libre Baskerville;
+}
+
+/*
+p {
+    font-weight: normal;
+    margin-bottom: 0.3em;
+    margin-top: 0.3em;
+    text-align: left;
+}
+*/
+
+.step.active {
+    z-index: 1000;
+}
+
+pre {
+    text-align: left;
+}
+
+h1, h2, h3, h4 {
+    font-weight: normal;
+    margin-bottom: 0.3em;
+    margin-top: 0.3em;
+}
+
+tt {
+    font-size: 125;
+}
+
+ul {
+    list-style-position: inside;
+}
+
+li {
+    line-height: 1.6em;
+    padding-left: 0.3em;
+    text-align: left;
+    list-style-position: outside;
+}
+
+a {
+    text-decoration: none;
+    color: #715FA5;
+}
+
+.slide-number {
+    position: absolute;
+    left: 10px;
+    bottom: 5px;
+    color: #8C8C8C;
+    font-family: gill, helvetica, sans-serif;
+}
+
+.step {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 4px 4px 24px 15px rgba(191,191,191,1);
+    background-color: #ffffff;
+}
+
+div#step-1 h1 {
+    margin-bottom: 1.5ex;
+    font-size: 3.5ex;
+}
+
+div#step-1 h2 {
+    margin-bottom: 2ex;
+}
+
+div#step-1 h3 {
+    font-size: 2ex;
+}
+
+.conference-subtitle {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    font-size: 20px;
+    color: #000;
+    font-family: gill, helvetica, sans-serif;
+}
+
+.qr-code-in-title {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 100;
+}
+
+.hidden {
+    display: none;
+}
+
+table.center-align-table td, table.center-align-table th {
+    text-align: center;
+}
+
+table.left-align-table td, table.left-align-table th {
+    text-align: left;
+}
+
+table.full-width-table {
+    width: 100%;
+}
+
+table.full-width-table p {
+    margin: 0px;
+}
+
+table.pad-table-cells th, table.pad-table-cells td {
+    padding: 0px 5px;
+}
+
+.nomargins {
+    margin: 0px;
+}
+
+.scaled-70 {
+    transform: scale(0.7,0.7);
+}
+
+.scaled-85 {
+    transform: scale(0.85,0.85);
+}
+
+.scaled-90 {
+    transform: scale(0.9,0.9);
+}
+
+.scaled-95 {
+    transform: scale(0.95,0.95);
+}
+
+.vertical-heading {
+    position: absolute;
+    width: 550px;
+    transform: rotate(-90deg) translate(-225px,-180px);
+    font-size: 120%;
+    }
+
+.vertical-heading2 {
+    position: absolute;
+    width: 550px;
+    transform: rotate(-90deg) translate(-225px,-250px);
+    font-size: 120%;
+    }
+
+.vertical-heading2-ru {
+    position: absolute;
+    width: 550px;
+    transform: rotate(-90deg) translate(-255px,-250px);
+    font-size: 100%;
+    }
+
+.vertical-heading3 {
+    position: absolute;
+    width: 550px;
+    transform: rotate(-90deg) translate(-210px,700px);
+    font-size: 90%;
+    }
+
+.vertical-heading4 {
+    position: absolute;
+    width: 550px;
+    transform: rotate(-90deg) translate(-225px,-250px);
+    font-size: 90%;
+    }
+
+.notice {
+    color: #c00;
+}
+
+.definition {
+    font-style: italic;
+    color: #24217F;
+}
+
+.orange {
+    color: #d88100
+}
+
+.critical {
+    color: #c00;
+    font-weight: bold;
+}
+
+.almost-invisible {
+    color: #ddd;
+}
+
+.monospace {
+    font-family: monospace;
+}
+
+.tt {
+    font-family: monospace;
+    color: #5d6198;
+}
+
+.green {
+    color: #0c0;
+}
+
+.midgreen {
+    color: #009400;
+}
+
+.at-bottom-right {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    margin: 30px;
+}
+
+td table {
+    display: inline-block;
+}
+
+body {
+    color: #660000;
+    background-color: #f7f7f7;
+}
+
+h2 {
+    color: #772222;
+}
+
+h3 {
+    color: #884444;
+}
+
+.smaller {
+   font-size: smaller;
+}
+
+.smaller-55 {
+   font-size: 55%;
+}
+
+.smaller-60 {
+   font-size: 60%;
+}
+
+.smaller-75 {
+   font-size: 75%;
+}
+
+.smaller-80 {
+   font-size: 80%;
+}
+
+.smaller-85 {
+   font-size: 85%;
+}
+
+.smaller-90 {
+   font-size: 90%;
+}
+
+.smaller-95 {
+   font-size: 95%;
+}
+
+h1#thank-you {
+    padding-top: 200px;
+}
+
+a {
+   font-family: monospace;
+}
+
+pre.highlight.code {
+    line-height: 1.2em;
+    padding-left: 50px;
+}
+
+.height-550 {
+    height: 550px;
+}
+
+.scrollable-code {
+    overflow: auto;
+}
+
+.remove-list-margin-top ul, .remove-list-margin-top ol {
+    margin-top: 0;
+}
+
+.remove-margin-bottom {
+    margin-bottom: 0;
+}
+
+.remove-margin-top {
+    margin-top: 0;
+}

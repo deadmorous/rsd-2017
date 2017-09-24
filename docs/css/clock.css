@@ -1,0 +1,36 @@
+.clock {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 120px;
+    width: 120px;
+    /*background-color: #fcc;*/
+    z-index: 100
+}
+.clock-ctl {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 120px;
+    width: 120px;
+    /*background-color: #cfc;*/
+}
+
+.clock-ctl > div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+.clock-ctl input[type="number"] {
+    width: 50px;
+}
+.clock-ctl input[type="button"] {
+    background-image: url('icon-play.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 20px;
+}
